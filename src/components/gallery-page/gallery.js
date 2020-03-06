@@ -15,6 +15,7 @@ export default class CarouselBox extends Component {
 
   render() {
     return (
+      <div className="gallery">
       <Carousel className="container">
         <Carousel.Item>
           <img
@@ -80,6 +81,7 @@ export default class CarouselBox extends Component {
           />
         </Carousel.Item>
       </Carousel>
+      </div>
     );
   };
 };
