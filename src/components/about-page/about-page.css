@@ -1,0 +1,12 @@
+.about-page {
+  margin-top: 80px;
+  color: grey;
+}
+
+.about-info {
+  margin-top: 40px;
+}
+.about-image {
+  width: 70%;
+  align-self: center;
+}
