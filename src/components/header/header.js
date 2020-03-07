@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 
 import './header.css'
 
-const Header = () => {
+const Header = ({onLogout}) => {
   return (
     <div className="header">
       <div className="container d-flex">
       <h3>
-        <a className="logo" href="/">
+        <Link to="/" className="logo">
           Test<span className="logo-sub">Task</span>
-        </a>
+        </Link>
       </h3>
       <ul className="d-flex">
         <li>
@@ -23,7 +23,12 @@ const Header = () => {
           <Link to="gallery" className="menu-item">Gallery</Link>
         </li>
       </ul>
-      <span className="login-info">Login please</span>
+      <button 
+      className="login-info"
+      onClick={onLogout}
+      >
+        Logout
+      </button>
       </div>
     </div>
   );

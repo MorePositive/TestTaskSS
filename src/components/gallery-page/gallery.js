@@ -14,73 +14,74 @@ import Pexels10 from '../gallery-page/images/pexels-10.jpeg'
 export default class CarouselBox extends Component {
 
   render() {
-    return (
+
+      return (
       <div className="gallery">
-      <Carousel className="container">
-        <Carousel.Item>
-          <img
-            className="d-block w-100 img-thumbnail"
-            src={ Pexels0 }
-            alt="slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100 img-thumbnail"
-            src={ Pexels1 }
-            alt="slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100 img-thumbnail"
-            src={ Pexels2 }
-            alt="slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100 img-thumbnail"
-            src={ Pexels3 }
-            alt="slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100 img-thumbnail"
-            src={ Pexels6 }
-            alt="slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100 img-thumbnail"
-            src={ Pexels7 }
-            alt="slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100 img-thumbnail"
-            src={ Pexels8 }
-            alt="slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100 img-thumbnail"
-            src={ Pexels9 }
-            alt="slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100 img-thumbnail"
-            src={ Pexels10 }
-            alt="slide"
-          />
-        </Carousel.Item>
-      </Carousel>
+        <Carousel className="container">
+          <Carousel.Item>
+            <img
+              className="d-block w-100 img-thumbnail"
+              src={ Pexels0 }
+              alt="slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100 img-thumbnail"
+              src={ Pexels1 }
+              alt="slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100 img-thumbnail"
+              src={ Pexels2 }
+              alt="slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100 img-thumbnail"
+              src={ Pexels3 }
+              alt="slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100 img-thumbnail"
+              src={ Pexels6 }
+              alt="slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100 img-thumbnail"
+              src={ Pexels7 }
+              alt="slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100 img-thumbnail"
+              src={ Pexels8 }
+              alt="slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100 img-thumbnail"
+              src={ Pexels9 }
+              alt="slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100 img-thumbnail"
+              src={ Pexels10 }
+              alt="slide"
+            />
+          </Carousel.Item>
+        </Carousel>
       </div>
     );
   };
