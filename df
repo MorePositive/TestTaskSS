@@ -1,0 +1,23 @@
+[33mcommit a5800e4d16b026f533e740c9893cad36fd2be077[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: MorePositive <morepositivecode@gmail.com>
+Date:   Sat Mar 7 16:02:39 2020 +0200
+
+    smpl loginPage added
+
+[33mcommit ec09f692484dea0dec082fe1f730f9fb59c03915[m
+Author: MorePositive <morepositivecode@gmail.com>
+Date:   Fri Mar 6 15:51:53 2020 +0200
+
+    loginPage process
+
+[33mcommit 445af08e4533ef138e0465f5cb91a1b399b00809[m
+Author: MorePositive <morepositivecode@gmail.com>
+Date:   Fri Mar 6 15:22:01 2020 +0200
+
+    fill content
+
+[33mcommit 1e4a32ccc2f3bc5543a01a21c96eed842c9b94da[m
+Author: MorePositive <morepositivecode@gmail.com>
+Date:   Fri Mar 6 12:51:28 2020 +0200
+
+    Initialize project using Create React App

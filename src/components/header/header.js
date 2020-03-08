@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './header.css'
 
-const Header = ({onLogout}) => {
+const Header = ({firebaseOut}) => {
   return (
     <div className="header">
       <div className="container d-flex">
@@ -24,8 +24,8 @@ const Header = ({onLogout}) => {
         </li>
       </ul>
       <button 
-      className="login-info"
-      onClick={onLogout}
+      className="login-info btn"
+      onClick={firebaseOut}
       >
         Logout
       </button>

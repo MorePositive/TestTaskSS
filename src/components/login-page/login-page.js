@@ -1,9 +1,10 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom'
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 
 import './login-page.css'
 
-const LoginPage = ({onLogin, isLoggedIn}) => {
+const LoginPage = ({isLoggedIn, uiConfig, firebaseAuth}) => {
 
   if (isLoggedIn) {
     return <Redirect to="/" />
@@ -27,11 +28,17 @@ const LoginPage = ({onLogin, isLoggedIn}) => {
           </div>
           <button 
           type="submit" 
-          className="btn btn-primary"
-          onClick={onLogin}
+          className="btn btn-primary btn-block"
           >
-            Submit
+            Sign in
           </button>
+          <button 
+          type="submit" 
+          className="btn btn-primary btn-block"
+          >
+            Sign up
+          </button>
+          <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebaseAuth} />
         </form>
       </div>
     </div>
