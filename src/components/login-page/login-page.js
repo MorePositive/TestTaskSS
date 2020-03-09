@@ -16,11 +16,11 @@ const LoginPage = ({isLoggedIn, uiConfig, firebaseAuth}) => {
         <form className="login-form">
           <div className="form-group">
             <label htmlFor="login-email">E-mail:</label>
-            <input type="email" className="form-control" id="login-email" placeholder="Enter email"/>
+            <input type="email" className="form-control" id="login-email" placeholder="Enter email" autoComplete="username" />
           </div>
           <div className="form-group">
             <label htmlFor="login-password">Password:</label>
-            <input type="password" className="form-control" id="login-password" placeholder="Password"/>
+            <input type="password" className="form-control" id="login-password" placeholder="Password" autoComplete="current-password" />
           </div>
           <div className="form-check">
             <input type="checkbox" className="form-check-input" id="login-check"/>

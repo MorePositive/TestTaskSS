@@ -1,0 +1,30 @@
+.login-details {
+  margin-left: auto;
+  margin-bottom: 16px;
+}
+
+.greeting {
+  padding: 0 20px;
+}
+
+.user-pic {
+  max-width: 50px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.user-photo {
+  display: inline-block;
+  position: relative;
+}
+
+.user-photo:before {
+  content: '';
+  width: 58px;
+  height: 58px;
+  background-color: lightskyblue;
+  position: absolute;
+  border-radius: 50%;
+  top: -4px;
+  left: -4px;
+}

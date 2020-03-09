@@ -28,14 +28,8 @@ export default class App extends Component {
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
       firebase.auth.GithubAuthProvider.PROVIDER_ID,
-      // firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      // firebase.auth.PhoneAuthProvider.PROVIDER_ID
     ],
-    callbacks: {
-      signInSuccess: () => false
-    }
   }
 
   componentDidMount = () => {
@@ -43,23 +37,14 @@ export default class App extends Component {
       this.setState({
         isLoggedIn: !!user
       })
-      console.log(user)
-    })
+    });
   }
-  // onLogin = (e) => {
-  //   e.preventDefault()
-  //   this.setState({
-  //     isLoggedIn: true
-  //   });
-  //   console.log(this.state.isLoggedIn)
-  // };
 
   onLogout = (e) => {
     e.preventDefault()
     this.setState({
       isLoggedIn: false
     });
-    console.log(this.state.isLoggedIn)
   }
 
   render() {
@@ -81,7 +66,3 @@ export default class App extends Component {
       );
   };
 };
-
-// 
-// <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()} />} />
-// <LoginPage onLogin={this.onLogin} isLoggedIn={isLoggedIn}/>

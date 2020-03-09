@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LoginDetails from '../login-details/login-details'
 
 import './header.css'
 
-const Header = ({firebaseOut}) => {
+const Header = ({data,isLoggedIn,firebaseOut}) => {
   return (
     <div className="header">
       <div className="container d-flex">
@@ -23,12 +24,7 @@ const Header = ({firebaseOut}) => {
           <Link to="gallery" className="menu-item">Gallery</Link>
         </li>
       </ul>
-      <button 
-      className="login-info btn"
-      onClick={firebaseOut}
-      >
-        Logout
-      </button>
+      <LoginDetails isLoggedIn={isLoggedIn} data={data} firebaseOut={firebaseOut}/>
       </div>
     </div>
   );

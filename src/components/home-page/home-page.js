@@ -10,7 +10,6 @@ const HomePage = ({isLoggedIn,data}) => {
     return (
       <div className="container">
         <h2>Welcome to Home page! {data.currentUser.displayName}</h2>
-        {/* <img style={this.props.style} src={data.currentUser.photoURL} alt="avatar"/> */}
       </div>
     );
   }
