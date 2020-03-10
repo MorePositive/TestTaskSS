@@ -11,7 +11,7 @@ const LoginPage = ({isLoggedIn, uiConfig, firebaseAuth}) => {
   }
 
   return (
-    <div className="login-page d-flex justify-content-center align-items-center">
+    <div className="login-page d-flex justify-content-center">
       <div className="login-container d-flex justify-content-center align-items-center">
         <form className="login-form">
           <div className="form-group">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import CarouselBox from './gallery'
+import CarouselBox from '../gallery/gallery'
 
 const GalleryPage = ({isLoggedIn}) => {
 
