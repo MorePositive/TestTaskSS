@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 
 import './about-page.css';
 
-import pexel5 from '../gallery-page/images/pexels-5.jpeg';
+import pexel5 from '../../images/pexels-5.jpeg';
 
 const AboutPage = ({isLoggedIn}) => {
 
