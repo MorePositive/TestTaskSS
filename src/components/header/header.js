@@ -4,12 +4,12 @@ import LoginDetails from '../login-details/login-details'
 
 import './header.css'
 
-const Header = ({data,isLoggedIn,firebaseOut}) => {
+const Header = ({data,firebaseOut}) => {
   return (
     <div className="header">
       <div className="container d-flex">
       <h3>
-        <Link to="/" className="logo">
+        <Link to="/dashboard" className="logo">
           Test<span className="logo-sub">Task</span>
         </Link>
       </h3>
@@ -23,8 +23,11 @@ const Header = ({data,isLoggedIn,firebaseOut}) => {
         <li>
           <Link to="gallery" className="menu-item">Gallery</Link>
         </li>
+        <li>
+          <Link to="/users" className="menu-item">Users</Link>
+        </li>
       </ul>
-      <LoginDetails isLoggedIn={isLoggedIn} data={data} firebaseOut={firebaseOut}/>
+      <LoginDetails data={data} firebaseOut={firebaseOut}/>
       </div>
     </div>
   );

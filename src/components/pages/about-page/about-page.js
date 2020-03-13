@@ -1,13 +1,11 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom'
 
 import './about-page.css';
 
-import pexel5 from '../../images/pexels-5.jpeg';
+import pexel5 from '../../../images/pexels-5.jpeg';
 
-const AboutPage = ({isLoggedIn}) => {
+const AboutPage = () => {
 
-    if (isLoggedIn) {
       return (
         <div className="about-page">
           <div className="container d-flex flex-column">
@@ -57,9 +55,6 @@ const AboutPage = ({isLoggedIn}) => {
           </div>
         </div>
       );
-    }
-    
-    return <Redirect to="/login"/>;
   
 };
 

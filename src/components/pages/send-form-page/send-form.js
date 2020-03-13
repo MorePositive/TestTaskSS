@@ -1,12 +1,9 @@
 import React from 'react';
 
-import { Redirect } from 'react-router-dom'
-
 import './send-form.css'
 
-const SendForm = ({isLoggedIn}) => {
+const SendForm = () => {
 
-  if (isLoggedIn) {
     return (
       <div className="container">
         <p className="send-form-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
@@ -39,8 +36,6 @@ const SendForm = ({isLoggedIn}) => {
         </form>
       </div>
     );
-  }
-    return <Redirect to="/login"/>;
 };
 
 export default SendForm;
