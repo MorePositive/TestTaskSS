@@ -1,11 +1,17 @@
-.login-page {
+/* .login-page {
   background: linear-gradient(0, rgba(26,184,219,1) 0%, rgba(0,190,252,1) 30%, rgba(255,255,255,1) 96%);
   height: 100vh;
-}
+} */
 
 .login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgb(221, 244, 255);
   box-shadow: 0 0 10px #fff;
+}
+
+.login-wh {
   width: 400px;
   height: 700px;
 }

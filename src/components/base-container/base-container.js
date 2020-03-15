@@ -20,7 +20,7 @@ const BaseContainer = ({data, firebaseOut}) => {
       <Route path='/about' render={() => <AboutPage />} />
       <Route path='/form' render={() => <SendForm />} />
       <Route path='/gallery' render={() => <GalleryPage />} />
-      <Route path='/users' render={() => <UsersPage/>} />
+      <Route path='/users' render={() => <UsersPage data={data} />} />
       <Redirect to='/dashboard' />
       </Switch>
     </Router>

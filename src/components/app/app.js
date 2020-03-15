@@ -32,7 +32,14 @@ export default class App extends Component {
       this.setState({
         isLoggedIn: !!user
       })
+      console.log(user)
     });
+  }
+
+  onLogin = (e) => {
+    e.preventDefault();
+    let value = e.target.value;
+    console.log(value)
   }
 
   onLogout = (e) => {
@@ -48,7 +55,7 @@ export default class App extends Component {
 
     return isLoggedIn ? 
     <BaseContainer data={this.data} firebaseOut={() => this.data.signOut()} /> : 
-    <StartPageContainer uiConfig={this.uiConfig} firebaseAuth={firebase.auth()} /> 
+    <StartPageContainer uiConfig={this.uiConfig} firebaseAuth={firebase.auth()} onLogin={this.onLogin} /> 
 
   };
 };
