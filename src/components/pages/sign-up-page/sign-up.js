@@ -6,14 +6,19 @@ import './sign-up.css'
 
 export default class SignUpPage extends Component {
 
-	state = {
-		userName: '',
-		surName: '',
-		email: '',
-		phone: '',
-		password: ''
+	constructor(props) {
+		super(props)
+		this.refreshApp = props.refreshApp;
+		this.state = {
+			userName: '',
+			surName: '',
+			email: '',
+			phone: '',
+			password: '',
+			role: ''
+		}
 	}
-
+	
 	postUsersDataHandler = (e) => {
 		e.preventDefault();
 		const usersData = {
@@ -21,11 +26,15 @@ export default class SignUpPage extends Component {
 			surName: this.state.surName,
 			email: this.state.email,
 			phone: this.state.phone,
-			password: this.state.password
+			password: this.state.password,
+			role: this.state.role
 		}
-
+		console.log(usersData.userName)
 		axiosData.post('/users.json', usersData)
-			.then(res => console.log(res))
+			.then(res => {
+				this.refreshApp();
+				alert('спасибо до свидания')
+			})
 			.catch(err => console.log(err))
 	}
 	
@@ -37,7 +46,21 @@ export default class SignUpPage extends Component {
         <p>Select registration type:</p>
 				<div className="form-group d-flex justify-content-sm-between">
 					<div className="form-wrapper">
-						<label htmlFor="name">Username</label>
+						<input type="radio" className="form-control" name="type" value="admin" onChange={(e) => this.setState({role: e.target.value})} />
+						<label htmlFor="admin">admin</label>
+					</div>
+					<div className="form-wrapper">
+						<input type="radio" className="form-control" name="type" value="manager" onChange={(e) => this.setState({role: e.target.value})} />
+						<label htmlFor="manager">manager</label>
+					</div>
+					<div className="form-wrapper">
+						<input type="radio" className="form-control" name="type" value="marketer" onChange={(e) => this.setState({role: e.target.value})} />
+						<label htmlFor="marketer">marketer</label>
+					</div>
+				</div>
+				<div className="form-group d-flex justify-content-sm-between">
+					<div className="form-wrapper">
+						<label htmlFor="role">Username</label>
 						<input type="text" className="form-control" name="name" value={this.state.userName} onChange={(e) => this.setState({userName: e.target.value})} />
 					</div>
 					<div className="form-wrapper">

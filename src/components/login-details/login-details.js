@@ -2,17 +2,20 @@ import React from 'react';
 
 import './login-details.css'
 
-const LoginDetails = ({data,firebaseOut}) => {
-
+const LoginDetails = ({data,onLogout}) => {
+  console.log(data)
+  const user = data.currentUser
     return (
       <div className="login-details">
-        <span className="greeting">Hello, {data.currentUser.displayName}</span>
+        <span className="greeting">Hello, {user.displayName || user.userName}</span>
+        {user.photoURL && 
         <div className="user-photo">
-        <img className="user-pic" src={data.currentUser.photoURL} alt="avatar" />
+        <img className="user-pic" src={user.photoURL} alt="avatar" />
         </div> 
+        }
         <button 
         className="btn"
-        onClick={firebaseOut}
+        onClick={onLogout}
         >
           Logout
         </button>

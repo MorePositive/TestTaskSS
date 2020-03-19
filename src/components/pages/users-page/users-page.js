@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Table from 'react-bootstrap/table'
+import UserListItem from './users-list';
+import UsersFetch from './usersFetch'
 
 
 export default class UsersPage extends Component {
@@ -11,6 +13,7 @@ export default class UsersPage extends Component {
   render() {
 
     const { data } = this.props;
+    const { key, userName, surName, email, phone} = this.props;
 
     return (
       <div className="container">
@@ -25,10 +28,11 @@ export default class UsersPage extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>{data.currentUser.displayName}</td>
-              <td>{data.currentUser.email}</td>
-              <td>{data.currentUser.phoneNumber}</td>
+            <UsersFetch />
+            {/* <tr>
+              <td>{userName} {surName}</td>
+              <td>{email}</td>
+              <td>{phone}</td>
               <td>@mdo</td>
             </tr>
             <tr>
@@ -53,7 +57,7 @@ export default class UsersPage extends Component {
               <td>Mark</td>
               <td>Otto</td>
               <td>@mdo</td>
-            </tr>
+            </tr> */}
           </tbody>
         </Table>
       </div>

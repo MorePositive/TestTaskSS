@@ -4,7 +4,7 @@ import LoginDetails from '../login-details/login-details'
 
 import './header.css'
 
-const Header = ({data,firebaseOut}) => {
+const Header = ({data,onLogout}) => {
   return (
     <div className="header">
       <div className="container d-flex">
@@ -27,7 +27,7 @@ const Header = ({data,firebaseOut}) => {
           <Link to="/users" className="menu-item">Users</Link>
         </li>
       </ul>
-      <LoginDetails data={data} firebaseOut={firebaseOut}/>
+      <LoginDetails data={data} onLogout={onLogout}/>
       </div>
     </div>
   );
