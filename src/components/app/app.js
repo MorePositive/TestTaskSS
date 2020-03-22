@@ -73,7 +73,7 @@ export default class App extends Component {
         return;
       }
     } 
-    alert('wrong USEEERRRR || not activated')
+    alert('User does not exist or not activated')
     // fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
     //   .catch(err => console.log(err));
   }
@@ -92,13 +92,24 @@ export default class App extends Component {
     this.data.signOut();
   }
 
+  resetForm () {
+		this.setState({
+			userName: '',
+			surName: '',
+			email: '',
+			phone: '',
+			password: '',
+			role: '',
+		})
+	}
+
   render() {
 
     const { isLoggedIn } = this.state;
 
     return isLoggedIn ? 
     <BaseContainer data={this.state} onLogout={this.onLogout.bind(this)} /> : 
-    <StartPageContainer onSubmit={this.onLogin.bind(this)} uiConfig={this.uiConfig} refreshApp={this.refreshApp.bind(this)} firebaseAuth={this.data} /> 
+    <StartPageContainer onSubmit={this.onLogin.bind(this)} uiConfig={this.uiConfig} refreshApp={this.refreshApp.bind(this)} firebaseAuth={this.data} resetForm={this.resetForm} /> 
 
   };
 };

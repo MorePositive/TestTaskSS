@@ -6,16 +6,17 @@ import SignUpPage from '../pages/sign-up-page/sign-up'
 import './start-page-container.css'
 
 
-const StartPageContainer = ({ onSubmit, uiConfig, refreshApp, firebaseAuth}) => {
+const StartPageContainer = ({ onSubmit, uiConfig, refreshApp, firebaseAuth, resetForm}) => {
+
 
   return (
     <div className="StartPageContainer d-flex justify-content-center align-items-center">
     <Router> 
     <Switch>
       <Route path='/login'
-      render={() => <LoginPage onSubmit={onSubmit} uiConfig={uiConfig} firebaseAuth={firebaseAuth} />} />
+      render={() => <LoginPage onSubmit={onSubmit} uiConfig={uiConfig} firebaseAuth={firebaseAuth} resetForm={resetForm} />} />
       <Route path='/signup'
-      render={() => <SignUpPage refreshApp={refreshApp} />} />
+      render={() => <SignUpPage refreshApp={refreshApp} resetForm={resetForm} />} />
     <Redirect to="/login"/>
     </Switch>
     </Router>

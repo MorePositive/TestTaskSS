@@ -19,6 +19,7 @@ export default class LoginPage extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = props.onSubmit;
     this.onLogin = this.onLogin.bind(this);
+    this.resetForm = props.resetForm.bind(this);
 
     this.state = {
       email: '',
@@ -34,7 +35,8 @@ export default class LoginPage extends Component {
   }
 
   onLogin(e) {
-    this.onSubmit(e, this.state.email, this.state.password)
+    this.onSubmit(e, this.state.email, this.state.password);
+    this.resetForm();
   }
 
   render() {

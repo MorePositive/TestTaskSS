@@ -9,16 +9,20 @@ export default class SignUpPage extends Component {
 	constructor(props) {
 		super(props)
 		this.refreshApp = props.refreshApp;
+		this.resetForm = props.resetForm.bind(this);
+		
 		this.state = {
 			userName: '',
 			surName: '',
 			email: '',
 			phone: '',
 			password: '',
-			role: ''
+			role: '',
+			isActivated: false
 		}
 	}
-	
+
+
 	postUsersDataHandler = (e) => {
 		e.preventDefault();
 		const usersData = {
@@ -27,16 +31,19 @@ export default class SignUpPage extends Component {
 			email: this.state.email,
 			phone: this.state.phone,
 			password: this.state.password,
-			role: this.state.role
+			role: this.state.role,
+			isActivated: false
 		}
 		console.log(usersData.userName)
 		axiosData.post('/users.json', usersData)
 			.then(res => {
 				this.refreshApp();
-				alert('спасибо до свидания')
+				alert('спасибо до свидания');
+				this.resetForm();
 			})
 			.catch(err => console.log(err))
 	}
+
 	
 	render() {
 		return (
