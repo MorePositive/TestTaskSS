@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import axiosData from '../../../service/axiosData'
 
 export default class UserModal extends Component {
@@ -22,8 +22,6 @@ export default class UserModal extends Component {
 			role: this.props.role,
 			isActivated: true
 		}
-    // this.setState({ isActivated: true })
-		console.log(usersData.userName, this.props.id)
 		axiosData.put(`/users/${this.props.id}.json`, usersData)
 			.then(res => {
 				alert('пользователь активирован');
@@ -34,7 +32,7 @@ export default class UserModal extends Component {
 
   render() {
 
-    const { username, surname, email, phone, role, id } = this.props;
+    const { username, surname, email, phone } = this.props;
 
     const styles = {
       width: '100%'
@@ -58,21 +56,21 @@ export default class UserModal extends Component {
             <div className="form-group d-flex">
               <div className="form-wrapper mr-3" style={styles}>
                 <label htmlFor="role">Name</label>
-                <input type="text" className="form-control" name="name" value={username} onChange={() => console.log(id)} />
+                <input type="text" className="form-control" name="name" defaultValue={username} />
               </div>
               <div className="form-wrapper mr-3" style={styles}>
                 <label htmlFor="lastname">Surname</label>
-                <input type="text" className="form-control" name="lastname" value={surname}  />
+                <input type="text" className="form-control" name="lastname" defaultValue={surname} />
               </div>
             </div>
             <div className="form-group d-flex">
               <div className="form-wrapper mr-3" style={styles}>
                 <label htmlFor="phone">Phone</label>
-                <input type="text" className="form-control" name="phone" value={phone} />
+                <input type="text" className="form-control" name="phone" defaultValue={phone} />
               </div>
               <div className="form-wrapper mr-3" style={styles}>
                 <label htmlFor="email">Email address</label>
-                <input type="email" className="form-control" name="email" value={email} />
+                <input type="email" className="form-control" name="email" defaultValue={email} />
               </div>
             </div>
           </form>

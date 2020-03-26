@@ -10,10 +10,6 @@ var firebaseConfig = {
   appId: "1:587457923432:web:e119ee33e04fa2e59caedd"
 };
 
-const fire = firebase.initializeApp({
-  apiKey: "AIzaSyBEbOCxbWlpI4BM3qX9kMBvr9D6nZmZQ9w",
-  authDomain: "testtask-ba53d.firebaseapp.com",
-  databaseURL: "https://testtask-ba53d.firebaseio.com",
-})
+const fire = firebase.initializeApp(firebaseConfig)
 
 export default fire;

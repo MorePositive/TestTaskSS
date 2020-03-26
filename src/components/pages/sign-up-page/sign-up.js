@@ -38,7 +38,7 @@ export default class SignUpPage extends Component {
 		axiosData.post('/users.json', usersData)
 			.then(res => {
 				this.refreshApp();
-				alert('спасибо до свидания');
+				alert('Спасибо за регистрацию! Подождите пока администратор активирует Ваш аккаунт');
 				this.resetForm();
 			})
 			.catch(err => console.log(err))

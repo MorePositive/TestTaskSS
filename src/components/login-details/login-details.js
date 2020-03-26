@@ -2,17 +2,16 @@ import React from 'react';
 
 import './login-details.css'
 
-const LoginDetails = ({data,onLogout}) => {
-  console.log(data)
-  const user = data.currentUser
+const LoginDetails = ({data, onLogout}) => {
+
     return (
       <div className="login-details">
-        <span className="greeting">Hello, {user.displayName || user.userName}</span>
-        {user.photoURL && 
+        <span className="greeting">Hello, {data.userName}</span>
+        {/* {socialData.photoURL && 
         <div className="user-photo">
-        <img className="user-pic" src={user.photoURL} alt="avatar" />
+        <img className="user-pic" src={socialData.photoURL} alt="avatar" />
         </div> 
-        }
+        } */}
         <button 
         className="btn"
         onClick={onLogout}

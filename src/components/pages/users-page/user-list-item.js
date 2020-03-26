@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import UserModal from './modal'
-import { ButtonToolbar, Button } from 'react-bootstrap';
+import { ButtonToolbar } from 'react-bootstrap';
 
 export default class UserListItem extends Component {
   constructor(props) {
@@ -33,12 +33,15 @@ export default class UserListItem extends Component {
               <td>{phone}</td>
               <td>{role}</td>
               <td>
-                <ButtonToolbar>
-                  <Button
+                <ButtonToolbar
+                className="justify-content-center"
+                >
+                  <button
                   onClick={this.addModalOpen}
+                  className="btn btn-outline-secondary"
                   >
                     edit
-                  </Button>
+                  </button>
                   <UserModal
                   show={this.state.addModalShow}
                   onHide={this.addModalClose}

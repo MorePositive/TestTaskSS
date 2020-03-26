@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import firebase from 'firebase'; 
-import fire from '../../service/fire'
+import firebase from 'firebase';
+import Cookies from 'js-cookie'
 import axiosData from '../../service/axiosData'
+import fire from '../../service/fire'
 
 import './app.css';
 
@@ -31,7 +32,6 @@ export default class App extends Component {
   refreshApp() {
     axiosData.get('/users.json')
       .then(res => {
-        console.log(res.data);
         const fetchedUsers = [];
         for (let key in res.data) {
           fetchedUsers.push({
@@ -42,7 +42,6 @@ export default class App extends Component {
         this.setState({
           users: fetchedUsers
         })
-        console.log(fetchedUsers[0].email)
       })
       
       .catch(err => console.log(err)); 
@@ -54,15 +53,14 @@ export default class App extends Component {
         isLoggedIn: !!user,
         currentUser: user
       })
-      document.cookie = 'isLoggedIn=' + !!user;
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      console.log(user)
+      // console.log(user)
+      // Cookies.set('isLoggedIn', true, {expires: 365});
+      // Cookies.set('currentUser', user);
     });
-    this.refreshApp()
+    this.refreshApp();
   }
 
   onLogin(e, email, password) {
-    console.log(123, this, e)
     e.preventDefault();
     for ( let user of this.state.users  ) {
       if (email === user.email && password === user.password && user.isActivated) {
@@ -70,18 +68,13 @@ export default class App extends Component {
           isLoggedIn: true,
           currentUser: user
         })
+        Cookies.set('isLoggedIn', true, {expires: 365});
+        Cookies.set('currentUser', user);
         return;
       }
     } 
-    alert('User does not exist or not activated')
-    // fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-    //   .catch(err => console.log(err));
+    alert('Вы ввели неверные данные или Ваш аккаунт не активирован');
   }
-  // onLogin = (e) => {
-  //   e.preventDefault();
-  //   let value = e.target.value;
-  //   console.log(value)
-  // }
 
   onLogout = (e) => {
     e.preventDefault()
@@ -90,6 +83,8 @@ export default class App extends Component {
       currentUser: null
     });
     this.data.signOut();
+    Cookies.remove('isLoggedIn');
+    Cookies.remove('currentUser');
   }
 
   resetForm () {
@@ -105,11 +100,16 @@ export default class App extends Component {
 
   render() {
 
-    const { isLoggedIn } = this.state;
+    // const { isLoggedIn } = this.state;
 
-    return isLoggedIn ? 
-    <BaseContainer data={this.state} onLogout={this.onLogout.bind(this)} /> : 
+    const isLogIn = Cookies.get('isLoggedIn');
+    const userdata = Cookies.get('currentUser');
+    // let usrPasre = JSON.stringify(Cookies.get('currentUser'));
+    // isLogIn && usr
+    const LoggedIn = isLogIn && userdata;
+
+    return LoggedIn ? 
+    <BaseContainer socialData={this.state} onLogout={this.onLogout.bind(this)} /> : 
     <StartPageContainer onSubmit={this.onLogin.bind(this)} uiConfig={this.uiConfig} refreshApp={this.refreshApp.bind(this)} firebaseAuth={this.data} resetForm={this.resetForm} /> 
-
   };
 };

@@ -15,7 +15,6 @@ export default class UsersFetch extends Component {
   componentDidMount() {
     axiosData.get('/users.json')
       .then(res => {
-        console.log(res.data);
         const fetchedUsers = [];
         for (let key in res.data) {
           fetchedUsers.push({
@@ -23,7 +22,6 @@ export default class UsersFetch extends Component {
             id: key
           })
         }
-        console.log(fetchedUsers)
         this.setState({
           users: fetchedUsers
         })
@@ -38,6 +36,8 @@ export default class UsersFetch extends Component {
           {this.state.users.map(user => 
           
           <UserListItem
+          
+          key={user.id}
            id={user.id}
            userName={user.userName}
            surName={user.surName}

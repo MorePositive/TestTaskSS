@@ -4,7 +4,7 @@ import LoginDetails from '../login-details/login-details'
 
 import './header.css'
 
-const Header = ({data,onLogout}) => {
+const Header = ({data, onLogout}) => {
   return (
     <div className="header">
       <div className="container d-flex">
@@ -23,9 +23,13 @@ const Header = ({data,onLogout}) => {
         <li>
           <Link to="gallery" className="menu-item">Gallery</Link>
         </li>
-        <li>
+
+        { data.role === 'admin' ?
+          <li>
           <Link to="/users" className="menu-item">Users</Link>
         </li>
+        : null}
+
       </ul>
       <LoginDetails data={data} onLogout={onLogout}/>
       </div>

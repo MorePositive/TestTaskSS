@@ -1,21 +1,14 @@
 import React, { Component } from 'react';
-import {Link, Redirect } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
-import axiosData from '../../../service/axiosData';
-import fire from '../../../service/fire'
-import firebase from 'firebase'
+
 
 import './login-page.css'
-
-
-  // const database = firebase.database().ref('/users')
-  // console.log(database)
 
 export default class LoginPage extends Component {
 
   constructor(props) {
     super(props);
-    // this.onLogin = this.onLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = props.onSubmit;
     this.onLogin = this.onLogin.bind(this);
@@ -29,9 +22,7 @@ export default class LoginPage extends Component {
 
 
   handleChange(e) {
-    console.log(e.target.name, e.target.value)
     this.setState({ [e.target.name] : e.target.value });
-    console.log(this.state)
   }
 
   onLogin(e) {
