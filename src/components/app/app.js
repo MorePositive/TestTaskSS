@@ -28,7 +28,6 @@ export default class App extends Component {
     ],
   }
 
-
   refreshApp() {
     axiosData.get('/users.json')
       .then(res => {
@@ -43,7 +42,6 @@ export default class App extends Component {
           users: fetchedUsers
         })
       })
-      
       .catch(err => console.log(err)); 
   }
 
@@ -53,9 +51,6 @@ export default class App extends Component {
         isLoggedIn: !!user,
         currentUser: user
       })
-      // console.log(user)
-      // Cookies.set('isLoggedIn', true, {expires: 365});
-      // Cookies.set('currentUser', user);
     });
     this.refreshApp();
   }
@@ -82,9 +77,9 @@ export default class App extends Component {
       isLoggedIn: false,
       currentUser: null
     });
-    this.data.signOut();
     Cookies.remove('isLoggedIn');
     Cookies.remove('currentUser');
+    this.data.signOut();
   }
 
   resetForm () {
@@ -100,12 +95,9 @@ export default class App extends Component {
 
   render() {
 
-    // const { isLoggedIn } = this.state;
-
     const isLogIn = Cookies.get('isLoggedIn');
     const userdata = Cookies.get('currentUser');
-    // let usrPasre = JSON.stringify(Cookies.get('currentUser'));
-    // isLogIn && usr
+
     const LoggedIn = isLogIn && userdata;
 
     return LoggedIn ? 

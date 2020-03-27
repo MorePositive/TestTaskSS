@@ -11,7 +11,7 @@ export default class UserModal extends Component {
     }
   }
 
-  postUsersActivate = (e) => {
+  postUserActivate = (e) => {
 		e.preventDefault();
     const usersData = {
 			userName: this.props.username,
@@ -28,6 +28,15 @@ export default class UserModal extends Component {
 			})
 			.catch(err => console.log(err))
 	}
+
+  postUserDelete = (e) => {
+    e.preventDefault();
+    axiosData.delete(`/users/${this.props.id}.json`)
+      .then(res => {
+        alert('пользователь удален');
+      })
+      .catch(err => console.log(err))
+  }
 
 
   render() {
@@ -78,8 +87,9 @@ export default class UserModal extends Component {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <button onClick={this.postUsersActivate} className="btn btn-outline-success w-50">Activate</button>
-        <button onClick={this.props.onHide} className="btn btn-outline-danger w-50">Close</button>
+        <button onClick={this.postUserActivate} className="btn btn-outline-success w-50">Activate</button>
+        <button onClick={this.postUserDelete} className="btn btn-outline-danger w-50">Delete</button>
+        <button onClick={this.props.onHide} className="btn btn-outline-secondary w-50">Close</button>
       </Modal.Footer>
     </Modal>
     )

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import DatePicker from "react-datepicker";
 import axiosData from '../../../service/axiosData';
 
+import "react-datepicker/dist/react-datepicker.css";
 import './sign-up.css'
 
 export default class SignUpPage extends Component {
@@ -18,6 +20,7 @@ export default class SignUpPage extends Component {
 			phone: '',
 			password: '',
 			role: '',
+			birthday: '',
 			isActivated: false
 		}
 	}
@@ -32,7 +35,8 @@ export default class SignUpPage extends Component {
 			phone: this.state.phone,
 			password: this.state.password,
 			role: this.state.role,
-			isActivated: false
+			birthday: this.state.birthday,
+			isActivated: this.state.isActivated
 		}
 		console.log(usersData.userName)
 		axiosData.post('/users.json', usersData)
@@ -88,6 +92,14 @@ export default class SignUpPage extends Component {
 					<label htmlFor="password">Password</label>
 					<input type="password" className="form-control" name="password" value={this.state.password} onChange={(e) => this.setState({password: e.target.value})} />
 				</div>
+				</div>
+				<div className="form-wrapper mb-3 d-flex flex-column">
+				<label>Birthday</label>
+				<DatePicker
+				className="form-control"
+				selected={this.state.birthday}
+        onChange={(date) => this.setState({birthday: date})}
+				/>
 				</div>
 				<button className="btn btn-primary btn-block" >Create new</button>
 				<Link to="/login" className="btn btn-primary btn-block" >Exit</Link>
