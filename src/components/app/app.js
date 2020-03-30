@@ -26,9 +26,12 @@ export default class App extends Component {
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
       firebase.auth.GithubAuthProvider.PROVIDER_ID,
     ],
-  }
+    callbacks: {
+      signInSuccess: () => false
+      }
+    }
 
-  refreshApp() {
+  refreshApp(checkUser) {
     axiosData.get('/users.json')
       .then(res => {
         const fetchedUsers = [];
@@ -41,18 +44,40 @@ export default class App extends Component {
         this.setState({
           users: fetchedUsers
         })
+        if (checkUser) {
+          if (Cookies.get('isLoggedIn')) {
+            const userEmail = Cookies.get('currentUser');
+            for (let i = 0; i < this.state.users.length; i++) {
+              if (userEmail === this.state.users[i].email) {
+                this.setState({
+                  isLoggedIn: true,
+                  currentUser: this.state.users[i]
+                })
+                break;
+              }
+            }
+          }
+          else {
+            Cookies.remove('isLoggedIn');
+            Cookies.remove('currentUser');
+          }
+        }
       })
       .catch(err => console.log(err)); 
   }
 
   componentDidMount = () => {
     this.data.onAuthStateChanged( user => {
-      this.setState({
-        isLoggedIn: !!user,
-        currentUser: user
-      })
+      if (user) {
+        this.setState({
+          isLoggedIn: !!user,
+          currentUser: user
+        })
+          Cookies.set('isLoggedIn', true, {expires: 365});
+          Cookies.set('currentUser', user.email);
+      }
     });
-    this.refreshApp();
+    this.refreshApp(true);
   }
 
   onLogin(e, email, password) {
@@ -64,7 +89,7 @@ export default class App extends Component {
           currentUser: user
         })
         Cookies.set('isLoggedIn', true, {expires: 365});
-        Cookies.set('currentUser', user);
+        Cookies.set('currentUser', user.email);
         return;
       }
     } 
@@ -95,13 +120,10 @@ export default class App extends Component {
 
   render() {
 
-    const isLogIn = Cookies.get('isLoggedIn');
-    const userdata = Cookies.get('currentUser');
+    const {isLoggedIn} = this.state;
 
-    const LoggedIn = isLogIn && userdata;
-
-    return LoggedIn ? 
-    <BaseContainer socialData={this.state} onLogout={this.onLogout.bind(this)} /> : 
+    return isLoggedIn ? 
+    <BaseContainer userdata={this.state.currentUser} onLogout={this.onLogout.bind(this)} /> : 
     <StartPageContainer onSubmit={this.onLogin.bind(this)} uiConfig={this.uiConfig} refreshApp={this.refreshApp.bind(this)} firebaseAuth={this.data} resetForm={this.resetForm} /> 
   };
 };

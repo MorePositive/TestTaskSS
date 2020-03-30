@@ -10,9 +10,10 @@ import GalleryPage from '../pages/gallery-page/gallery-page'
 import UsersPage from '../pages/users-page/users-page'
 
 
-const BaseContainer = ({onLogout}) => {
+const BaseContainer = ({userdata, onLogout}) => {
 
-  const userdata = JSON.parse(Cookies.get('currentUser'));
+  // const userdata = JSON.parse(Cookies.get('currentUser'));
+  // const userdata = this.state.currentUser;
 
   return (
     <Router>
@@ -23,7 +24,7 @@ const BaseContainer = ({onLogout}) => {
       <Route path='/about' render={() => <AboutPage />} />
       <Route path='/form' render={() => <SendForm />} />
       <Route path='/gallery' render={() => <GalleryPage />} />
-      {userdata.role === 'admin' ? <Route path='/users' render={() => <UsersPage data={userdata} />  }  /> : <Redirect to="/about" /> }
+      {userdata && userdata.role === 'admin' ? <Route path='/users' render={() => <UsersPage data={userdata} />  }  /> : <Redirect to="/about" /> }
       <Route path='/users' render={() => <UsersPage data={userdata} />} />
       <Redirect to='/about' />
       </Switch>

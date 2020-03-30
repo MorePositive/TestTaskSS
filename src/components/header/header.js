@@ -24,7 +24,7 @@ const Header = ({data, onLogout}) => {
           <Link to="gallery" className="menu-item">Gallery</Link>
         </li>
 
-        { data.role === 'admin' ?
+        { data && data.role === 'admin' ?
           <li>
           <Link to="/users" className="menu-item">Users</Link>
         </li>
