@@ -15,6 +15,7 @@ export default class UsersPage extends Component {
               <th>E-mail</th>
               <th>Phone</th>
               <th>Role</th>
+              <th>Activate</th>
               <th>Edit</th>
             </tr>
           </thead>

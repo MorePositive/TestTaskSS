@@ -45,6 +45,7 @@ export default class UsersFetch extends Component {
            password={user.password}
            phone={user.phone}
            role={user.role}
+           isActivated={user.isActivated}
            edit={<UserModal />}
            />
           )}

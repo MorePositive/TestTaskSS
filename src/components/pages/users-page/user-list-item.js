@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import UserModal from './modal'
 import { ButtonToolbar } from 'react-bootstrap';
+import SwitchActivate from './switch-activate';
 
 export default class UserListItem extends Component {
   constructor(props) {
@@ -21,10 +22,9 @@ export default class UserListItem extends Component {
     this.setState({ addModalShow: true })
   }
 
-
   render() {
 
-    const {id, userName, surName, email, password, phone, role} = this.props;
+    const {id, userName, surName, email, password, phone, role, birthday, isActivated} = this.props;
 
     return (
           <tr>
@@ -32,6 +32,19 @@ export default class UserListItem extends Component {
               <td>{email}</td>
               <td>{phone}</td>
               <td>{role}</td>
+              <td>
+                <SwitchActivate
+                id={id}
+                username={userName}
+                surname={surName}
+                email={email}
+                password={password}
+                phone={phone}
+                role={role}
+                isActivated={isActivated}
+                birthday={birthday}
+                />
+              </td>
               <td>
                 <ButtonToolbar
                 className="justify-content-center"

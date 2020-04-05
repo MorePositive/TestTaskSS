@@ -10,16 +10,17 @@ export default class UserModal extends Component {
       isActivated: false
     }
   }
-
+// second activate button
   postUserActivate = (e) => {
-		e.preventDefault();
+    e.preventDefault();
+    const { username, surname, email, phone, password, role } = this.props;
     const usersData = {
-			userName: this.props.username,
-			surName: this.props.surname,
-			email: this.props.email,
-			phone: this.props.phone,
-			password: this.props.password,
-			role: this.props.role,
+			userName: username,
+			surName: surname,
+			email: email,
+			phone: phone,
+			password: password,
+			role: role,
 			isActivated: true
 		}
 		axiosData.put(`/users/${this.props.id}.json`, usersData)
