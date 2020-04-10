@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Table from 'react-bootstrap/table';
 import UsersFetch from './usersFetch';
 
 
-export default class UsersPage extends Component {
+const UsersPage = () => {
 
-  render() {
     return (
       <div className="container">
         <Table striped bordered hover>
@@ -16,6 +15,7 @@ export default class UsersPage extends Component {
               <th>Phone</th>
               <th>Role</th>
               <th>Activate</th>
+              <th>Delete</th>
               <th>Edit</th>
             </tr>
           </thead>
@@ -25,5 +25,6 @@ export default class UsersPage extends Component {
         </Table>
       </div>
     )
-  }
-};
+  };
+
+  export default UsersPage;

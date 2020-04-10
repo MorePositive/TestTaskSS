@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import Cookies from 'js-cookie'
 
 import Header from '../header/header'
 import HomePage from '../pages/home-page/home-page'
@@ -10,10 +9,8 @@ import GalleryPage from '../pages/gallery-page/gallery-page'
 import UsersPage from '../pages/users-page/users-page'
 
 
-const BaseContainer = ({userdata, onLogout}) => {
+const BaseContainer = ({ userdata, onLogout }) => {
 
-  // const userdata = JSON.parse(Cookies.get('currentUser'));
-  // const userdata = this.state.currentUser;
 
   return (
     <Router>
@@ -24,7 +21,7 @@ const BaseContainer = ({userdata, onLogout}) => {
       <Route path='/about' render={() => <AboutPage />} />
       <Route path='/form' render={() => <SendForm />} />
       <Route path='/gallery' render={() => <GalleryPage />} />
-      {userdata && userdata.role === 'admin' ? <Route path='/users' render={() => <UsersPage data={userdata} />  }  /> : <Redirect to="/about" /> }
+      {userdata && userdata.role === 'admin' ? <Route path='/users' render={() => <UsersPage data={userdata} />} /> : <Redirect to="/about" />}
       <Route path='/users' render={() => <UsersPage data={userdata} />} />
       <Redirect to='/about' />
       </Switch>

@@ -6,80 +6,94 @@ import axiosData from '../../../service/axiosData';
 import "react-datepicker/dist/react-datepicker.css";
 import './sign-up.css'
 
+const initialState = {
+	userName: '',
+	surName: '',
+	email: '',
+	phone: '',
+	password: '',
+	passwordConfirm: '',
+	role: '',
+	birthday: '',
+	isActivated: false,
+	inputValidError: {
+		userNameError: '',
+		userNameClazz: 'form-control',
+		surNameError: '',
+		surNameClazz: 'form-control',
+		emailError: '',
+		emailClazz: 'form-control',
+		passwordError: '',
+		passwordClazz: 'form-control',
+		passwordConfirmError: '',
+		passwordConfirmClazz: 'form-control',
+		roleError: '',
+		birthdayError: '',
+		birthdayClazz: 'form-control'
+	},
+	passwordShown: false,
+	confirmShown: false
+}
+
 export default class SignUpPage extends Component {
 
 	constructor(props) {
 		super(props)
 		this.refreshApp = props.refreshApp;
-		this.resetForm = props.resetForm.bind(this);
 		
-		this.state = {
-			userName: '',
-			surName: '',
-			email: '',
-			phone: '',
-			password: '',
-			role: '',
-			birthday: '',
-			isActivated: false,
-			inputValidError: {
-				userNameError: '',
-				userNameClazz: 'form-control',
-				surNameError: '',
-				surNameClazz: 'form-control',
-				emailError: '',
-				emailClazz: 'form-control',
-				passwordError: '',
-				passwordClazz: 'form-control',
-				roleError: '',
-				roleClazz: 'form-control',
-				birthdayError: '',
-				birthdayClazz: 'form-control'
-			},
-			passwordShown: false
-		}
+		this.state = initialState;
+	}
+	getInitialState = () => {
+		this.setState(initialState)
 	}
 
 	postUsersDataHandler = (e) => {
+		const { userName, surName, email, phone, password, role, birthday, isActivated, passwordConfirm } = this.state;
 		e.preventDefault();
 		const isValid = this.validate();
-		if (!isValid) {
-			console.log('empty!')
-		} else {
+		const confirmed = passwordConfirm === password;
+
+		if (isValid && confirmed) {
 			const usersData = {
-				userName: this.state.userName,
-				surName: this.state.surName,
-				email: this.state.email,
-				phone: this.state.phone,
-				password: this.state.password,
-				role: this.state.role,
-				birthday: this.state.birthday,
-				isActivated: this.state.isActivated
+				userName,
+				surName,
+				email,
+				phone,
+				password,
+				role,
+				birthday,
+				isActivated
 			}
-			console.log(usersData.userName)
 			axiosData.post('/users.json', usersData)
 				.then(res => {
 					this.refreshApp();
 					alert('Спасибо за регистрацию! Подождите пока администратор активирует Ваш аккаунт');
-					this.resetForm();
+					this.getInitialState();
 				})
 				.catch(err => console.log(err))
 		}		
 	}
 
 	validate = () => {
-		const { userName, surName, email, password, birthday } = this.state;
+		const { role, userName, surName, email, password, passwordConfirm, birthday } = this.state;
+		let roleError = '';
 		let userNameError = '';
 		let surNameError = '';
 		let emailError = '';
 		let passwordError = '';
+		let passwordConfirmError = '';
 		let birthdayError = '';
 		let userNameClazz = 'form-control';
 		let surNameClazz = 'form-control';
 		let emailClazz = 'form-control';
 		let passwordClazz = 'form-control';
+		let passwordConfirmClazz = 'form-control';
 		let birthdayClazz = 'form-control';
 
+
+		if (!role) {
+			roleError = "Please choose your role";
+		}
 
 		if (!userName) {
 		userNameError = "name is empty";
@@ -95,17 +109,29 @@ export default class SignUpPage extends Component {
 			emailError = "email field is empty";
 			emailClazz += " is-invalid"
 		}
+
 		if (!password) {
 			passwordError = "password field is empty";
 			passwordClazz += " is-invalid";
 		}
+
+		if (!passwordConfirm) {
+			passwordConfirmError = "confirm your password";
+			passwordConfirmClazz += " is-invalid";
+		} else if (passwordConfirm !== password) {
+			passwordConfirmError = "incorrect password";
+			passwordConfirmClazz += " is-invalid";
+		}
+
 		if (!birthday) {
 			birthdayError = "birthday field is empty";
 			birthdayClazz += " is-invalid";
 		}
-		if (userNameError || surNameError || emailError || passwordError || birthdayError) {
+
+		if (roleError || userNameError || surNameError || emailError || passwordError || passwordConfirmError || birthdayError) {
 			this.setState({
-				inputValidError: { 
+				inputValidError: {
+					roleError, 
 					userNameError, 
 					userNameClazz, 
 					surNameError,
@@ -113,7 +139,9 @@ export default class SignUpPage extends Component {
 					emailError,
 					emailClazz, 
 					passwordError,
-					passwordClazz, 
+					passwordClazz,
+					passwordConfirmError,
+					passwordConfirmClazz,
 					birthdayError,
 					birthdayClazz 
 				} 
@@ -126,17 +154,27 @@ export default class SignUpPage extends Component {
 	togglePasswordVisibility = () => {
 		const {passwordShown} = this.state;
 		this.setState({
-			passwordShown: !passwordShown
+			passwordShown: !passwordShown,
+		})
+	}
+	togglePasswordConfirmVisibility = () => {
+		const {confirmShown} = this.state;
+		this.setState({
+			confirmShown: !confirmShown
 		})
 	}
 
+	handleChange = (e) => {
+    this.setState({ [e.target.name] : e.target.value });
+  }
 
 	render() {
 
-		const { passwordShown } = this.state;
-		const { password } = this.state;
+		const { passwordShown, confirmShown } = this.state;
+		const { password, passwordConfirm } = this.state;
 
 		const hideIcon = password ? "fa fa-eye password-icon" : "";
+		const hideIconConfirm = passwordConfirm ? "fa fa-eye password-icon" : "";
 		const errorStyle = {
 			fontSize: 12,
 			color: 'red'
@@ -149,48 +187,58 @@ export default class SignUpPage extends Component {
         <p>Select registration type:<span className="required">*</span></p>
 				<div className="form-group d-flex justify-content-sm-between">
 					<div className="form-wrapper">
-						<input type="radio" className="form-control" name="type" value="admin" onChange={(e) => this.setState({role: e.target.value})} />
+						<input type="radio" className="form-control" name="role" value="admin" onChange={this.handleChange} />
 						<label htmlFor="admin">admin</label>
 					</div>
 					<div className="form-wrapper">
-						<input type="radio" className="form-control" name="type" value="manager" onChange={(e) => this.setState({role: e.target.value})} />
+						<input type="radio" className="form-control" name="role" value="manager" onChange={this.handleChange} />
 						<label htmlFor="manager">manager</label>
 					</div>
 					<div className="form-wrapper">
-						<input type="radio" className="form-control" name="type" value="marketer" onChange={(e) => this.setState({role: e.target.value})} />
+						<input type="radio" className="form-control" name="role" value="marketer" onChange={this.handleChange} />
 						<label htmlFor="marketer">marketer</label>
 					</div>
 				</div>
+				<div style={errorStyle}>{this.state.inputValidError.roleError}</div>
 				<div className="form-group d-flex justify-content-sm-between">
 					<div className="form-wrapper">
 						<label htmlFor="role">Username<span className="required">*</span></label>
-						<input type="text" className={this.state.inputValidError.userNameClazz} name="name" value={this.state.userName} onChange={(e) => this.setState({userName: e.target.value})} />
+						<input type="text" className={this.state.inputValidError.userNameClazz} name="userName" value={this.state.userName} onChange={this.handleChange} />
 						<div style={errorStyle} className="">{this.state.inputValidError.userNameError}</div>
 					</div>
 					<div className="form-wrapper">
 						<label htmlFor="lastname">Surname<span className="required">*</span></label>
-						<input type="text" className={this.state.inputValidError.surNameClazz} name="lastname" value={this.state.surName} onChange={(e) => this.setState({surName: e.target.value})} />
+						<input type="text" className={this.state.inputValidError.surNameClazz} name="surName" value={this.state.surName} onChange={this.handleChange} />
 						<div style={errorStyle}  className="">{this.state.inputValidError.surNameError}</div>
 					</div>
 				</div>
 				<div className="form-wrapper">
 					<label htmlFor="email">Email address<span className="required">*</span></label>
-					<input type="email" className={this.state.inputValidError.emailClazz} name="email" value={this.state.email} onChange={(e) => this.setState({email: e.target.value})} />
+					<input type="email" className={this.state.inputValidError.emailClazz} name="email" value={this.state.email} onChange={this.handleChange} />
 					<div style={errorStyle}  className="">{this.state.inputValidError.emailError}</div>
 				</div>
 				<div className="form-group d-flex justify-content-sm-between">
 				<div className="form-wrapper">
-					<label htmlFor="phone">Phone</label>
-					<input type="text" className="form-control" name="phone" value={this.state.phone} onChange={(e) => this.setState({phone: e.target.value})} />
-				</div>
-				<div className="form-wrapper">
-					<label htmlFor="password">Password<span className="required">*</span></label>
 					<div className="form-group password-container">
-					<input type={passwordShown ? "text" : "password"} className={this.state.inputValidError.passwordClazz} name="password" value={this.state.password} onChange={(e) => this.setState({password: e.target.value})} />
+					<label htmlFor="password">Password<span className="required">*</span></label>
+					<input type={passwordShown ? "text" : "password"} className={this.state.inputValidError.passwordClazz} name="password" value={this.state.password} onChange={this.handleChange} />
 					<i className={hideIcon} onClick={this.togglePasswordVisibility}></i>
 					</div>
 					<div style={errorStyle} className="">{this.state.inputValidError.passwordError}</div>
 				</div>
+				<div className="form-wrapper">
+					<div className="form-group password-container">
+					<label htmlFor="passwordConfirm">Password Confirm<span className="required">*</span></label>
+					<input type={confirmShown ? "text" : "password"} className={this.state.inputValidError.passwordConfirmClazz} name="passwordConfirm" value={this.state.passwordConfirm} onChange={this.handleChange} />
+					<i className={hideIconConfirm} onClick={this.togglePasswordConfirmVisibility}></i>
+					</div>
+					<div style={errorStyle} className="">{this.state.inputValidError.passwordConfirmError}</div>
+				</div>
+				</div>
+				<div className="form-group d-flex justify-content-sm-between">
+				<div className="form-wrapper">
+					<label htmlFor="phone">Phone</label>
+					<input type="text" className="form-control" name="phone" value={this.state.phone} onChange={this.handleChange} />
 				</div>
 				<div className="form-wrapper mb-3 d-flex flex-column">
 				<label>Birthday<span className="required">*</span></label>
@@ -201,10 +249,11 @@ export default class SignUpPage extends Component {
 				/>
 				<div style={errorStyle}  className="">{this.state.inputValidError.birthdayError}</div>
 				</div>
+				</div>
 				<button className="btn btn-primary btn-block" >Create new</button>
 				<Link to="/login" className="btn btn-primary btn-block" >Exit</Link>
 			</form>
 		</div>
     );
 	}
-};
+}

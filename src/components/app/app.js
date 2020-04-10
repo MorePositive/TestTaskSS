@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import Cookies from 'js-cookie'
+
 import axiosData from '../../service/axiosData'
 import fire from '../../service/fire'
 
@@ -27,7 +28,7 @@ export default class App extends Component {
       firebase.auth.GithubAuthProvider.PROVIDER_ID,
     ],
     callbacks: {
-      signInSuccess: () => false
+      signInSuccessWithAuthResult: () => false
       }
     }
 
@@ -105,6 +106,7 @@ export default class App extends Component {
     Cookies.remove('isLoggedIn');
     Cookies.remove('currentUser');
     this.data.signOut();
+    this.refreshApp(true);
   }
 
   resetForm () {
@@ -113,8 +115,10 @@ export default class App extends Component {
 			surName: '',
 			email: '',
 			phone: '',
-			password: '',
-			role: '',
+      password: '',
+      passwordConfirm: '',
+      role: '',
+      birthday: ''
 		})
 	}
 

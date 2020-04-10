@@ -1,44 +1,15 @@
 import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap';
-import axiosData from '../../../service/axiosData'
 
 export default class UserModal extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       isActivated: false
     }
   }
-// second activate button
-  postUserActivate = (e) => {
-    e.preventDefault();
-    const { username, surname, email, phone, password, role } = this.props;
-    const usersData = {
-			userName: username,
-			surName: surname,
-			email: email,
-			phone: phone,
-			password: password,
-			role: role,
-			isActivated: true
-		}
-		axiosData.put(`/users/${this.props.id}.json`, usersData)
-			.then(res => {
-				alert('пользователь активирован');
-			})
-			.catch(err => console.log(err))
-	}
-
-  postUserDelete = (e) => {
-    e.preventDefault();
-    axiosData.delete(`/users/${this.props.id}.json`)
-      .then(res => {
-        alert('пользователь удален');
-      })
-      .catch(err => console.log(err))
-  }
-
 
   render() {
 
@@ -48,7 +19,7 @@ export default class UserModal extends Component {
       width: '100%'
     }
 
-    return(
+    return (
       <Modal
       {...this.props}
       size="lg"
@@ -88,9 +59,7 @@ export default class UserModal extends Component {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <button onClick={this.postUserActivate} className="btn btn-outline-success w-50">Activate</button>
-        <button onClick={this.postUserDelete} className="btn btn-outline-danger w-50">Delete</button>
-        <button onClick={this.props.onHide} className="btn btn-outline-secondary w-50">Close</button>
+        <button onClick={this.props.onHide} className="btn btn-outline-secondary w-100">Close</button>
       </Modal.Footer>
     </Modal>
     )

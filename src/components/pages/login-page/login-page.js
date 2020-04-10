@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+import axiosData from '../../../service/axiosData'
 
 
 import './login-page.css'
@@ -20,6 +21,22 @@ export default class LoginPage extends Component {
     }
   }
 
+  componentDidMount() {
+    axiosData.get('/users.json')
+    .then(res => {
+      const fetchedUsers = [];
+      for (let key in res.data) {
+        fetchedUsers.push({
+          ...res.data[key],
+          id: key
+        })
+      }
+      this.setState({
+        users: fetchedUsers
+      })
+    })
+    .catch(err => console.log(err)); 
+  }
 
   handleChange(e) {
     this.setState({ [e.target.name] : e.target.value });
@@ -62,6 +79,6 @@ export default class LoginPage extends Component {
           <StyledFirebaseAuth uiConfig={this.props.uiConfig} firebaseAuth={this.props.firebaseAuth} />
         </form>
       </div>
-  );
+    );
   }
 };
