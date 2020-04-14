@@ -1,0 +1,20 @@
+.vehicles-page {
+  position: relative;
+}
+
+.vehicles-page table tbody tr:hover {
+  background-color: lightskyblue;
+  cursor: pointer;
+}
+
+.react-bootstrap-table {
+  margin-top: 100px;
+}
+
+.filter {
+  position: absolute;
+  width: 200px;
+  top: 5px;
+  left: 250px;
+  border-color: lightskyblue;
+}

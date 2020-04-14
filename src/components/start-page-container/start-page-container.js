@@ -6,7 +6,7 @@ import SignUpPage from '../pages/sign-up-page/sign-up'
 import './start-page-container.css'
 
 
-const StartPageContainer = ({ onSubmit, uiConfig, refreshApp, firebaseAuth, resetForm}) => {
+const StartPageContainer = ({onSubmit, uiConfig, refreshApp, firebaseAuth, resetForm}) => {
 
 
   return (

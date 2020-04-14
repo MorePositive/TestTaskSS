@@ -7,6 +7,8 @@ import AboutPage from '../pages/about-page/about-page';
 import SendForm from '../pages/send-form-page/send-form'
 import GalleryPage from '../pages/gallery-page/gallery-page'
 import UsersPage from '../pages/users-page/users-page'
+import VehiclesPage from '../pages/vehicles-page/vehicles-page'
+import VehicleEditPage from '../pages/vehicles-page/vehicle-edit-page'
 
 
 const BaseContainer = ({ userdata, onLogout }) => {
@@ -17,12 +19,18 @@ const BaseContainer = ({ userdata, onLogout }) => {
       
       <Header data={userdata} onLogout={onLogout}/>
       <Switch>
-      <Route path='/dashboard' render={() => <HomePage data={userdata} />} exact />
+      <Route path='/dashboard' render={() => <HomePage data={userdata} />} />
       <Route path='/about' render={() => <AboutPage />} />
       <Route path='/form' render={() => <SendForm />} />
       <Route path='/gallery' render={() => <GalleryPage />} />
       {userdata && userdata.role === 'admin' ? <Route path='/users' render={() => <UsersPage data={userdata} />} /> : <Redirect to="/about" />}
-      <Route path='/users' render={() => <UsersPage data={userdata} />} />
+      <Route exact path='/vehicles' component={VehiclesPage} />
+      <Route path='/vehicles/edit/:id' 
+        render={({match}) => {
+          const { id } = match.params;
+          return <VehicleEditPage itemId={id} />
+        }} 
+      />
       <Redirect to='/about' />
       </Switch>
     </Router>

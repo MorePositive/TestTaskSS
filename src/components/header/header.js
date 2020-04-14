@@ -21,7 +21,10 @@ const Header = ({data, onLogout}) => {
           <Link to="/form" className="menu-item">Send Me Form</Link>
         </li>
         <li>
-          <Link to="gallery" className="menu-item">Gallery</Link>
+          <Link to="/gallery" className="menu-item">Gallery</Link>
+        </li>
+        <li>
+          <Link to="/vehicles" className="menu-item">Vehicles</Link>
         </li>
 
         { data && data.role === 'admin' ?
