@@ -16,28 +16,29 @@ export default class Vehicleslist extends Component {
     super(props)
 
     this.state = {
-      users: []
+      vehicles: [],
+      loading : true
     }
-
   }
 
   componentDidMount() {
-    console.log('1232')
-    this.updateUsers();
+    // this.updateUsers();
+    this.updateVehicles();
   }
 
-  updateUsers = () => {
-    axiosData.get('/users.json')
+  updateVehicles = () => {
+    axiosData.get('/vehicles.json')
     .then(res => {
-    const fetchedUsers = [];
+    const fetchedVehicles = [];
     for (let key in res.data) {
-      fetchedUsers.push({
+      fetchedVehicles.push({
         ...res.data[key],
         id: key
       })
     }
     this.setState({
-      users: fetchedUsers
+      vehicles: fetchedVehicles,
+      loading : false
     })
     this.forceUpdate();
   })
@@ -47,13 +48,16 @@ export default class Vehicleslist extends Component {
 
   render() {
 
-    const selectOptions  = this.state.users.reduce((acc, user, index) => {
-      acc[user.email] = user.userName || user.email;
+    const { loading } = this.state;
+
+    const selectOptions  = this.state.vehicles.reduce((acc, vehicle, index) => {
+      acc[vehicle.owner] = vehicle.owner;
+      console.log(vehicle)
       return acc;
     }, {});
  
     const columns = [{
-      dataField: 'email',
+      dataField: 'owner',
       text: 'Owner',
       sort: true,
       formatter: cell => selectOptions[cell],
@@ -61,24 +65,25 @@ export default class Vehicleslist extends Component {
         options: selectOptions,
       })
     }, {
-      dataField: 'password',
+      dataField: 'mark',
+      text: 'Mark',
+      sort: true,
+    }, {
+      dataField: 'model',
       text: 'Model',
       sort: true,
     }, {
-      dataField: 'userName',
+      dataField: 'year',
       text: 'Year',
-      sort: true,
-    }, {
-      dataField: 'id',
-      text: 'Mark',
       sort: true,
     }];
 
     return ( 
-      <div className="container vehicles-page" >
-        <h2>Vehicles</h2>
-      <BootstrapTable keyField="email" data={this.state.users} columns ={columns} pagination={paginationFactory()} filter={filterFactory()} rowEvents={{onClick: this.props.onItemSelected}} /> 
-      </div> 
+      <div>
+        { loading ? <h2 style={{textAlign: "center"}}>Loading...</h2> : 
+        <BootstrapTable keyField="id" data={this.state.vehicles} columns ={columns} pagination={paginationFactory()} filter={filterFactory()} rowEvents={{onClick: this.props.onItemSelected}} /> 
+        }
+      </div>  
     )
   }
 };

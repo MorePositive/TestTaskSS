@@ -36,7 +36,7 @@ export default class UserModal extends Component {
           <form className="w-75">
             <div className="form-group d-flex">
               <div className="form-wrapper mr-3" style={styles}>
-                <label htmlFor="role">Name</label>
+                <label htmlFor="name">Name</label>
                 <input type="text" className="form-control" name="name" defaultValue={username} />
               </div>
               <div className="form-wrapper mr-3" style={styles}>

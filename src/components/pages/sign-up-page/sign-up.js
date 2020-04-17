@@ -146,7 +146,7 @@ export default class SignUpPage extends Component {
 					birthdayClazz 
 				} 
 			})
-			return false;
+			return false
 		}
 		return true
 	}
