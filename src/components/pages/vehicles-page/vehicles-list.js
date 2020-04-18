@@ -9,7 +9,6 @@ import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css
 import '../vehicles-page/vehicles-page.css'
 
 
-
 export default class Vehicleslist extends Component {
 
   constructor(props) {
@@ -22,7 +21,6 @@ export default class Vehicleslist extends Component {
   }
 
   componentDidMount() {
-    // this.updateUsers();
     this.updateVehicles();
   }
 
@@ -52,7 +50,6 @@ export default class Vehicleslist extends Component {
 
     const selectOptions  = this.state.vehicles.reduce((acc, vehicle, index) => {
       acc[vehicle.owner] = vehicle.owner;
-      console.log(vehicle)
       return acc;
     }, {});
  

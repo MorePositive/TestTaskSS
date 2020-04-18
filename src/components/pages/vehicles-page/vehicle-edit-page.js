@@ -6,7 +6,6 @@ export default class VehicleEditPage extends Component {
 
   constructor(props) {
     super(props)
-    console.log(this.props)
 
     this.state = {
       owner: '',
@@ -14,7 +13,8 @@ export default class VehicleEditPage extends Component {
       model: '',
       year: '',
       url: '',
-      loading: true
+      loading: true,
+      progress: 0
     }
   }  
 
@@ -40,6 +40,7 @@ export default class VehicleEditPage extends Component {
     e.preventDefault();
     axiosData.patch(`/vehicles/${this.props.itemId}.json`, newVehicle)
       .then(res => {
+        this.setState({ progress: 0 })
         alert('data was changed')
       })
       .catch(err => console.log(err))
@@ -51,20 +52,24 @@ export default class VehicleEditPage extends Component {
 
     // Upload image
 
-    handleUpload = (e) => {
-      const image = e.target.files[0];
-      if (image) {
-        this.setState(() => ({ image }))
-      }
+  handleUpload = (e) => {
+    const image = e.target.files[0];
+    if (image) {
+      this.setState(() => ({ image }))
     }
+  }
   
-    onUpload = (e) => {
-      e.preventDefault();
-      const { image } = this.state;
+  onUpload = (e) => {
+    e.preventDefault();
+    const { image } = this.state;
+    if (!image) {
+      return false
+    } else {
       const upload = storage.ref(`images/${image.name}`).put(image);
       upload.on('state_changed', 
       (snapshot) => {
-        //progress
+      const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      this.setState({ progress })
       }, 
       (err) => {
         console.log(err)
@@ -76,10 +81,11 @@ export default class VehicleEditPage extends Component {
           })
       })
     }
+  }
 
   render() {
 
-    const { owner, mark, model, year, loading } = this.state;
+    const { owner, mark, model, year, loading, progress } = this.state;
 
     return (
       <div className="container">
@@ -97,17 +103,17 @@ export default class VehicleEditPage extends Component {
           <label htmlFor="model">Model:</label>
           <input type="text" className="form-control" name="model" defaultValue={model} onChange={this.handleChange} required/>
         </div>
-        <div className="form-group">
+        <div className="form-group mb-3">
           <label htmlFor="year">Year:</label>
           <input type="text" className="form-control" name="year" defaultValue={year} onChange={this.handleChange} required/>
         </div>
-        <div className="form-group">
-          <label htmlFor="image">Upload image</label>
-          <input type="file" className="form-control-file" id="image" onChange={this.handleUpload} />
-          <button onClick={this.onUpload} className="btn btn-success">Upload</button>
+        <div className="form-wrapper d-flex flex-column">
+          <progress className="progress-bar mb-3 w-50" value={progress} max="100" />
+          <input type="file" className="form-control-file mb-3 w-50" id="image" onChange={this.handleUpload} />
+          <button onClick={this.onUpload} className="btn btn-success mb-3 w-50">Upload</button>
           <img src={this.state.url || 'https://previews.123rf.com/images/archman/archman1510/archman151002572/45807161-flat-long-shadow-car-icon-vector-illustration.jpg'} alt="vehicle" width="200" height="150" />
         </div>
-        <button type="submit" className="btn btn-primary">Edit</button>
+        <button type="submit" className="btn btn-primary mt-3 w-50">Edit</button>
       </form>
        }
       </div>

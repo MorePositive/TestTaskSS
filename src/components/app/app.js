@@ -50,10 +50,12 @@ export default class App extends Component {
             const userEmail = Cookies.get('currentUser');
             for (let i = 0; i < this.state.users.length; i++) {
               if (userEmail === this.state.users[i].email) {
+                const user = this.state.users[i];
                 this.setState({
                   isLoggedIn: true,
-                  currentUser: this.state.users[i]
+                  currentUser: user,
                 })
+                sessionStorage.setItem('user', JSON.stringify(user))
                 break;
               }
             }
@@ -67,7 +69,16 @@ export default class App extends Component {
       .catch(err => console.log(err)); 
   }
 
-  componentDidMount = () => {
+  componentDidMount() {  
+    const cachedUser = JSON.parse(sessionStorage.getItem('user'));
+    if (Cookies.get('isLoggedIn') && cachedUser) {
+      this.setState({ 
+        isLoggedIn: true,
+        currentUser: cachedUser
+      })
+    } else {
+      this.refreshApp(true);
+    }
     this.data.onAuthStateChanged( user => {
       if (user) {
         this.setState({
@@ -78,7 +89,6 @@ export default class App extends Component {
           Cookies.set('currentUser', user.email);
       }
     });
-    this.refreshApp(true);
   }
 
   onLogin(e, email, password) {
@@ -89,6 +99,7 @@ export default class App extends Component {
           isLoggedIn: true,
           currentUser: user
         })
+        sessionStorage.setItem('user', JSON.stringify(user))
         Cookies.set('isLoggedIn', true, {expires: 365});
         Cookies.set('currentUser', user.email);
         return;
@@ -98,18 +109,19 @@ export default class App extends Component {
   }
 
   onLogout = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     this.setState({
       isLoggedIn: false,
       currentUser: null
     });
+    sessionStorage.removeItem('user');
     Cookies.remove('isLoggedIn');
     Cookies.remove('currentUser');
     this.data.signOut();
     this.refreshApp(true);
   }
 
-  resetForm () {
+  resetForm() {
 		this.setState({
 			userName: '',
 			surName: '',

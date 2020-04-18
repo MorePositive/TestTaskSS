@@ -17,7 +17,8 @@ export default class AddVehicle extends Component {
       owner: 'admin',
       yearError: '',
       image: null,
-      url: ''
+      url: '',
+      progress: 0
     }
   }
 
@@ -38,24 +39,6 @@ export default class AddVehicle extends Component {
   })
   .catch(err => console.log(err)); 
   }
-
-  // componentDidUpdate() {
-  //   axiosData.get('/users.json')
-  //   .then(res => {
-  //   const fetchedUsers = [];
-  //   for (let key in res.data) {
-  //     fetchedUsers.push({
-  //       ...res.data[key],
-  //       id: key
-  //     })
-  //   }
-  //   this.setState({
-  //     users: fetchedUsers
-  //   })
-  //   this.forceUpdate();
-  // })
-  // .catch(err => console.log(err)); 
-  // }
   
   postVehicleAdd = (e) => {
     e.preventDefault();
@@ -71,7 +54,8 @@ export default class AddVehicle extends Component {
         year: '',
         owner: 'admin',
         yearError: '',
-        url: ''
+        url: '',
+        progress: 0
       })
       alert('Автомобиль добавлен');
       this.forceUpdate()
@@ -110,20 +94,25 @@ export default class AddVehicle extends Component {
   onUpload = (e) => {
     e.preventDefault();
     const { image } = this.state;
-    const upload = storage.ref(`images/${image.name}`).put(image);
-    upload.on('state_changed', 
-    (snapshot) => {
-      //progress
-    }, 
-    (err) => {
-      console.log(err)
-    }, 
-    () => {
-      storage.ref('images').child(image.name).getDownloadURL()
-        .then(url => {
-          this.setState({ url })
-        })
-    })
+    if (!image) {
+      return false
+    } else {
+      const upload = storage.ref(`images/${image.name}`).put(image);
+      upload.on('state_changed', 
+      (snapshot) => {
+      const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      this.setState({ progress })
+      }, 
+      (err) => {
+        console.log(err)
+      }, 
+      () => {
+        storage.ref('images').child(image.name).getDownloadURL()
+          .then(url => {
+            this.setState({ url })
+          })
+      })
+    }
   }
 
   render() {
@@ -177,9 +166,9 @@ export default class AddVehicle extends Component {
             </div>
               <div className="d-flex w-25 align-items-center">
               <div className="form-group">
-                {/* <label htmlFor="image">Upload image</label> */}
-                <input type="file" className="form-control-file" id="image" onChange={this.handleUpload} />
-                <button onClick={this.onUpload} className="btn btn-success">Upload</button>
+                <progress className="progress-bar mb-3 w-100" value={this.state.progress} max="100" />
+                <input type="file" className="form-control-file mb-3" id="image" onChange={this.handleUpload} />
+                <button onClick={this.onUpload} className="btn btn-success mb-3 w-100">Upload</button>
                 <img src={this.state.url || 'https://previews.123rf.com/images/archman/archman1510/archman151002572/45807161-flat-long-shadow-car-icon-vector-illustration.jpg'} alt="vehicle" width="200" height="150" />
               </div>
               </div>

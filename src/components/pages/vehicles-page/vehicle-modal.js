@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
 
 import AddVehicle from './add-vehicle'
-import axiosData from '../../../service/axiosData'
 
 export default class VehicleModal extends Component {
   constructor() {
@@ -22,17 +21,6 @@ export default class VehicleModal extends Component {
   addModalOpen() {
     this.setState({ addModalShow: true })
   }
-
-  // postUserDelete = (e) => {
-  //   const {id, onDeleteUser} = this.props;
-  //   e.preventDefault();
-  //   axiosData.delete(`/users/${id}.json`)
-  //     .then(res => {
-  //       onDeleteUser(id)
-  //       alert('пользователь удален');
-  //     })
-  //     .catch(err => console.log(err))
-  // }
 
   render() {
 
