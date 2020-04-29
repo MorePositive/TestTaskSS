@@ -23,7 +23,7 @@ const BaseContainer = ({ userdata, onLogout }) => {
       <Route path='/about' render={() => <AboutPage />} />
       <Route path='/form' render={() => <SendForm />} />
       <Route path='/gallery' render={() => <GalleryPage />} />
-       <PrivateRoute path="/vehicles" roles="admin, manager" component={VehiclesPage} />
+       <PrivateRoute path="/vehicles" roles="admin, manager" component={VehiclesPage} exact/>
        <PrivateRoute path="/users" roles="admin" component={UsersPage} />
       <Route path='/vehicles/edit/:id' 
         render={({match}) => {

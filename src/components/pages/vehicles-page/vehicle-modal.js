@@ -15,6 +15,7 @@ export default class VehicleModal extends Component {
   }
 
   addModalClose() {
+    this.props.updateList();
     this.setState({ addModalShow: false })
   }
 

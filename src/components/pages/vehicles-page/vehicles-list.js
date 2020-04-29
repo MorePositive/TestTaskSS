@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import filterFactory, { selectFilter } from 'react-bootstrap-table2-filter';
 import paginationFactory from 'react-bootstrap-table2-paginator';
+import VehicleModal from './vehicle-modal'
 
 import axiosData from '../../../service/axiosData'
 
@@ -77,6 +78,10 @@ export default class Vehicleslist extends Component {
 
     return ( 
       <div>
+        <div className="d-flex">
+          <h2 className="vehicles-header mr-3">Vehicles</h2>
+          <VehicleModal updateList={this.updateVehicles.bind(this)} />
+        </div>
         { loading ? <h2 style={{textAlign: "center"}}>Loading...</h2> : 
         <BootstrapTable keyField="id" data={this.state.vehicles} columns ={columns} pagination={paginationFactory()} filter={filterFactory()} rowEvents={{onClick: this.props.onItemSelected}} /> 
         }
